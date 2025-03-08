@@ -1,0 +1,16 @@
+2025-03-08 10:35:18,629 [INFO] USER:yashraj_mahapatra generate.py:72:project LOG: Project name: taks03
+2025-03-08 10:35:18,630 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
+2025-03-08 10:35:18,656 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project taks03 folder has been successfully created.
+2025-03-08 10:35:18,656 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.027505
+2025-03-08 10:35:47,001 [INFO] USER:yashraj_mahapatra generate.py:72:project LOG: Project name: task03
+2025-03-08 10:35:47,018 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
+2025-03-08 10:35:47,026 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project task03 folder has been successfully created.
+2025-03-08 10:35:47,026 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.024874
+2025-03-08 10:48:09,464 [INFO] USER:yashraj_mahapatra generate.py:72:project LOG: Project name: task03
+2025-03-08 10:48:09,465 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
+2025-03-08 10:48:09,489 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project task03 folder has been successfully created.
+2025-03-08 10:48:09,489 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.025011
+2025-03-08 10:57:36,534 [INFO] USER:yashraj_mahapatra generate.py:72:project LOG: Project name: task03
+2025-03-08 10:57:36,535 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
+2025-03-08 10:57:36,539 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project task03 folder has been successfully created.
+2025-03-08 10:57:36,539 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.004475
