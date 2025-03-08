@@ -50,10 +50,10 @@ public class HelloWorld implements RequestHandler<Object, Map<String, Object>> {
 	public Map<String, Object> handleRequest(Object request, Context context) {
 		System.out.println("Hello from Lambda");
 
-		// Fix: Directly include "statusCode" and "message" in the response
+		// Construct the correct response format
 		Map<String, Object> response = new HashMap<>();
 		response.put("statusCode", 200);
-		response.put("message", "Hello from Lambda"); // Move "message" up one level
+		response.put("message", "Hello from Lambda"); // Directly matching expected format
 
 		return response;
 	}
