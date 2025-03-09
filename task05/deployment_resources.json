@@ -10,7 +10,7 @@
             "dynamodb:GetItem",
             "dynamodb:Query",
             "dynamodb:PutItem",
-            "dynamodb:BatchWriteItem",
+            "dynamodb:Batch*",
             "dynamodb:DeleteItem",
             "ssm:PutParameter",
             "ssm:GetParameter",
@@ -65,8 +65,7 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true,
-          "enable_proxy": true
+          "default_error_pattern": true
         }
       }
     },
