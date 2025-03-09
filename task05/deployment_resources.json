@@ -71,8 +71,5 @@
       }
     },
     "tags": {}
-  },
-  "${notification_bucket}": {
-    "resource_type": "s3_bucket"
   }
 }
