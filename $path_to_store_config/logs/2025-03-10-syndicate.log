@@ -30,3 +30,7 @@
 2025-03-10 14:31:26,280 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
 2025-03-10 14:31:26,283 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project task07 folder has been successfully created.
 2025-03-10 14:31:26,283 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.003633
+2025-03-10 16:01:00,614 [INFO] USER:yashraj_mahapatra generate.py:72:project LOG: Project name: task08
+2025-03-10 16:01:00,614 [INFO] USER:yashraj_mahapatra generate.py:79:project LOG: Project path: C:\Yashraj Mahapatra\AWS Sandbox\AWS_Sandbox
+2025-03-10 16:01:00,620 [INFO] USER:yashraj_mahapatra project.py:77:generate_project_structure LOG: Project task08 folder has been successfully created.
+2025-03-10 16:01:00,620 [INFO] USER:yashraj_mahapatra helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.006731
