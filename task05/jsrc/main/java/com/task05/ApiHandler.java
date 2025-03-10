@@ -1,12 +1,15 @@
 package com.task05;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.syndicate.deployment.annotations.environment.EnvironmentVariable;
+import com.syndicate.deployment.annotations.environment.EnvironmentVariables;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.model.RetentionSetting;
 
@@ -22,51 +25,50 @@ import java.util.UUID;
 		aliasName = "${lambdas_alias_name}",
 		logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
+@EnvironmentVariables(value = {
+		@EnvironmentVariable(key = "target_table", value = "${target_table}")
+})
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
-	private final AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
-	private static final String TABLE_NAME = "Events";
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	private static final String TABLE_NAME = System.getenv("target_table");
+	private static final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
+	private static final DynamoDB dynamoDB = new DynamoDB(client);
+	private static final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
 	public Map<String, Object> handleRequest(Map<String, Object> request, Context context) {
-		context.getLogger().log("Received request: " + request);
+		context.getLogger().log("Received input: " + request.toString());
 
 		try {
-			// Extract request parameters
+			// Extract data from request
 			int principalId = (int) request.get("principalId");
-			Map<String, Object> content = (Map<String, Object>) request.get("content");
+			Map<String, String> content = (Map<String, String>) request.get("content");
 
-			// Generate event data
+			// Generate event fields
 			String eventId = UUID.randomUUID().toString();
 			String createdAt = Instant.now().toString();
 
-			// Construct item to store in DynamoDB
-			Map<String, AttributeValue> item = new HashMap<>();
-			item.put("id", new AttributeValue(eventId));
-			item.put("principalId", new AttributeValue().withN(String.valueOf(principalId)));
-			item.put("createdAt", new AttributeValue(createdAt));
-			item.put("body", new AttributeValue(objectMapper.writeValueAsString(content))); // Store as JSON string
-
 			// Save event to DynamoDB
-			dynamoDB.putItem(new PutItemRequest(TABLE_NAME, item));
+			Table table = dynamoDB.getTable(TABLE_NAME);
+			Item item = new Item()
+					.withPrimaryKey("id", eventId)
+					.withNumber("principalId", principalId)
+					.withString("createdAt", createdAt)
+					.withMap("body", content);
 
-			// Create response
-			Map<String, Object> eventResponse = new HashMap<>();
-			eventResponse.put("id", eventId);
-			eventResponse.put("principalId", principalId);
-			eventResponse.put("createdAt", createdAt);
-			eventResponse.put("body", content);
+			table.putItem(item);
+			context.getLogger().log("Saved event to DynamoDB: " + item.toJSON());
 
+			// Prepare success response
 			Map<String, Object> response = new HashMap<>();
 			response.put("statusCode", 201);
-			response.put("event", eventResponse);
-
+			response.put("event", item.asMap());
 			return response;
 
 		} catch (Exception e) {
 			context.getLogger().log("Error processing request: " + e.getMessage());
 
+			// Prepare error response
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("statusCode", 500);
 			errorResponse.put("error", "Internal Server Error: " + e.getMessage());
